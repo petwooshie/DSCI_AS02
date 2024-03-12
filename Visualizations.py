@@ -5,8 +5,8 @@ import pydeck as pdk
 
 st.set_page_config(layout="wide",
                    initial_sidebar_state="collapsed",
-                   page_title='test',
-                   page_icon='heart')
+                   page_title='Earthquake'
+                   )
 st.markdown("<h1 style='text-align: center; color: black;'>EARTHQUAKE</h1>", unsafe_allow_html=True)
 
 df_eq = pd.read_csv('cleaned_earthquake.csv')
@@ -76,12 +76,11 @@ with st.container():
     if mag_slider:
         df_magnitude = df_eq[df_eq['magnitude'] <= mag_slider]
     fig1 = px.scatter(df_magnitude,
-                        x = 'magnitude',
-                        y = 'depth',
-                        color = 'magnitude',
-                        labels = {
-                            'depth' : 'depth (km)'
-                            })
+                      x = 'magnitude',
+                      y = 'depth',
+                      color = 'magnitude',
+                      labels = {'depth' : 'depth (km)'}
+                      )
     st.plotly_chart(fig1, use_container_width=True)
         
 
@@ -91,9 +90,9 @@ with st.container():
     st.markdown("<h4 style='text-align: center; color: black;'>V-3&4 : Number of Affected People</h4>", unsafe_allow_html=True)
     
     selected_variable = st.radio('Y Variable for Left Visualization', ['Total injured',
-                                                                        'Total affected',
-                                                                        'Total homeless'
-                                                                    ])
+                                                                       'Total affected',
+                                                                       'Total homeless']
+                                 )
     
     col1 = st.columns(2)
     df_compared_entity = pd.DataFrame(df_dis.groupby(['Entity'])['Total deaths'].sum())
@@ -118,10 +117,10 @@ with st.container():
     st.markdown("<h4 style='text-align: center; color: black;'>V-5 : Reliability of Instruments</h4>", unsafe_allow_html=True)
     
     selected_indication = st.selectbox('Y Variable', ['gap',
-                                                        'dmin',
-                                                        'nst',
-                                                        'mmi'
-                                                        ])
+                                                      'dmin',
+                                                      'nst',
+                                                      'mmi']
+                                       )
     
     fig3 = px.scatter(df_eq, x='sig',
                         y=selected_indication, 
@@ -150,10 +149,10 @@ with st.container():
     x_var3 = st.selectbox('Third Entity', df_dis['Entity'].unique())
     x_var4 = st.selectbox('Fourth Entity', df_dis['Entity'].unique())
     y_var = st.radio('Variable', ['Total deaths',
-                                    'Total injured',
-                                    'Total affected',
-                                    'Total homeless'
-                                    ])
+                                  'Total injured',
+                                  'Total affected',
+                                  'Total homeless']
+                     )
     
     df_first_entity = df_dis[df_dis['Entity']==x_var1]
     df_second_entity = df_dis[df_dis['Entity']==x_var2]
