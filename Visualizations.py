@@ -51,7 +51,7 @@ with st.container():
 
     layer = pdk.Layer(
         'ScatterplotLayer',
-        data = df_dis,
+        data = df_eq,
         get_position = ['longitude', 'latitude'],
         radius = 90,
         extruded = True,
